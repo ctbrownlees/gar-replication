@@ -36,13 +36,13 @@ function [status] = qr_oos( H , covs , createmfile )
 % https://faculty.fuqua.duke.edu/~abn5/belloni-software.html
 global HOME
 %% Load Data Mfile, predictors and set params
-load(sprintf('%s/data/mfiles/data.mat', HOME )
+load(sprintf('%s/data/mfiles/data.mat', HOME ))
 covs  = 1 - covs  ;    % 1 - Coverage
 % Load Predictors
-sv = readtable('%s/data/clean/sv.csv','TreatAsEmpty',{'.','NA'});
-ts = readtable('%s/data/clean/ts.csv','TreatAsEmpty',{'.','NA'});
-hp = readtable('%s/data/clean/hp.csv','TreatAsEmpty',{'.','NA'});
-cr = readtable('%s/data/clean/cr.csv','TreatAsEmpty',{'.','NA'});
+sv = readtable(sprintf('%s/data/clean/sv.csv',HOME),'TreatAsEmpty',{'.','NA'});
+ts = readtable(sprintf('%s/data/clean/ts.csv',HOME),'TreatAsEmpty',{'.','NA'});
+hp = readtable(sprintf('%s/data/clean/hp.csv',HOME),'TreatAsEmpty',{'.','NA'});
+cr = readtable(sprintf('%s/data/clean/cr.csv',HOME),'TreatAsEmpty',{'.','NA'});
 % Collect dates
 dates_sv = datenum(sv{:,2});
 dates_ts = datenum(ts{:,2});

@@ -1,15 +1,17 @@
 
-# [Backtesting Global Growth-at-Risk](https://ssrn.com/abstract=3461214)
+# [Backtesting Global Growth-at-Risk Replication Files](https://ssrn.com/abstract=3461214)
 
-## Replication Files
-
-### [Christian Brownlees](http://www.econ.upf.edu/~cbrownlees/) and [Andre B.M. Souza](www.andrebmsouza.com)
-This repository contains data and code used in the paper.
+#### Authors 
+ [Christian Brownlees](http://www.econ.upf.edu/~cbrownlees/) and [Andre B.M. Souza](www.andrebmsouza.com)
 
 #### Software Requirements
-1. Bash Interpreter ( you only need this to run the single code file. You can still use the remaining code without it.)
-2. MATLAB
-3. [R](https://www.r-project.org/)
+
+[MATLAB](https://www.mathworks.com/) The code has been tested with the MATLAB releases R2017a and R2019a
+
+#### Instructions
+
+To replicate the out-of-sample results of Brownlees and Souza (2019) run the script <tt>gar_replication.m</tt>.
+The script will create Tables 4 to 6. The tables will be stored as individual CSV files in the directory <tt>tables</tt>.
 
 #### Data
 
