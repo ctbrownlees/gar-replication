@@ -42,14 +42,17 @@ for(j in 1:length(files)){
                               summarize(epu=mean(epu)))
     }
   if (sum((df[,1] %in% quarterly$dates )) ==0 ) cat(sprintf('error at %s',name))
-  df[ which(df[,1] %in% quarterly$dates ), 1 +which(cnames==name)] <- quarterly$epu[which(quarterly$dates %in% df[,1] )]
+  df[ which(df[,1] %in% quarterly$dates ), 1 + which(cnames==name)] <- quarterly$epu[which(quarterly$dates %in% df[,1] )]
 }
 
-global <- rowMeans(df[,-1],na.rm = TRUE)
-df[,-1] <- scale(df[,-1])
-global <- scale(global)
+global <- scale( rowMeans( scale( df[,-1] ) ,na.rm = TRUE) )
 for (i in 2:ncol(df)){
-  df[is.na(df[,i]),i] <- global[is.na(df[,i])]
+  if (sum(is.na(df[,i])) == nrow(df) ) {
+    df[is.na(df[,i]),i] <-global[is.na(df[,i])]
+  }else{
+    df[is.na(df[,i]),i] <- global[is.na(df[,i])] * sd( df[,i],na.rm = TRUE )
+  }
 } 
 
+df <- df[rowSums(is.na(df))==0,]
 write.csv(df,sprintf('../../data/clean/epu.csv'))

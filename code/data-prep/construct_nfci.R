@@ -54,10 +54,12 @@ for (j in 2:ncol(dframe)){
   if (country %in% cnames) nfci[country] <- dframe[,j]
 }
 
-global.nfci  <- scale(rowMeans(dframe[,-1],na.rm=TRUE)) # To use information from all NFCIs, not just the ones we keep.
-nfci[colSums(is.na(nfci))==nrow(nfci)] <- rowMeans(dframe[,-1],na.rm = TRUE)
+global.nfci  <- scale(rowMeans( scale( dframe[,-1]) ,na.rm=TRUE)) # To use information from all NFCIs, not just the ones we keep.
+nfci[colSums(is.na(nfci))==nrow(nfci)] <- global.nfci
 for (i in 1:ncol(nfci)){
   nfci[is.na(nfci[,i]),i] <- global.nfci[is.na(nfci[,i])] * sd(nfci[,i],na.rm = TRUE)
 }
 
+nfci <- cbind.data.frame('Dates'=dframe$Dates,nfci)
+nfci$Dates <- gsub("Q","-Q",nfci$Dates)
 write.csv(nfci,'../../data/clean/nfci.csv')

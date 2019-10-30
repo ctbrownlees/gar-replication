@@ -11,7 +11,7 @@ cnames[which(!(cnames %in% colnames(d) ))] # To see whos out
 
 dout <- data.frame(matrix(NA,nrow=nrow(d),ncol=length(cnames)+1))
 colnames(dout) <- c('Dates',cnames)
-global <- rowMeans(dmatched,na.rm = T)
+global <- rowMeans(scale(dmatched),na.rm = T)
 dout[ , colnames(dout) %in% colnames(dmatched) ] <- dmatched
 dout[ , !(colnames(dout) %in% colnames(dmatched)) ] <- global
 dout$Dates <- dates

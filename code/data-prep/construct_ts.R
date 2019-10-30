@@ -43,15 +43,15 @@ for( i in 1:( length(ctr_smp) )){
 }
 # Spread
 d_spread <- dframe_lt[,-1] - dframe_st[,-1]
+d_spread <- cbind.data.frame('Dates'=dframe_lt[,1],d_spread)
 # Filling out NAs
-d_spread <- scale(d_spread)
-global   <- scale(rowMeans(d_spread,na.rm=TRUE))
+global   <- scale(rowMeans(scale(d_spread[,-1]),na.rm=TRUE))
 for (i in 1:length(ctr_smp)){
-  d_spread[is.na(d_spread[,i]),i] <- scale(global[is.na(d_spread[,i])]) * sd(d_spread[,i],na.rm=T)
+  d_spread[is.na(d_spread[,1+i]),1+i] <- scale(global[is.na(d_spread[,1+i])]) * sd(d_spread[,1+i],na.rm=T)
 }
 
 # Dates
 dates_out <-  parse_date_time( dframe_st[,1] , order='y-q')
-d_spread  <- cbind.data.frame('Dates'= dates_out,d_spread)
+d_spread[,1]  <- dates_out
 
 write.csv(d_spread,'../../data/clean/ts.csv')
