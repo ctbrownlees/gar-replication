@@ -149,7 +149,7 @@ for h = H
         M.bonfF(t-os_garch+1,:) = quantile( squeeze( path_f(end,:,:)) , coverage/N, 1);
 
       end
-      cat('.')
+      fprintf('.')
     end
     fprintf(' GARCH OOS %s steps ahead done!' , h) 
     save(sprintf('%s/data/mfiles/garch/coverage_%.2f_%.0f_ahead.mat',HOME , ...

@@ -1,23 +1,27 @@
 
 # [Backtesting Global Growth-at-Risk Replication Files](https://ssrn.com/abstract=3461214)
 
-#### Authors 
+This repository contains the replication files for the paper <i>Backtesting Global Growth-at-Risk</i>
+by Christian Brownlees and Andre B.M. Souza which is available on SSRN at the address
+[https://ssrn.com/abstract=3461214](https://ssrn.com/abstract=3461214)
+
+## Authors 
  [Christian Brownlees](http://www.econ.upf.edu/~cbrownlees/) and [Andre B.M. Souza](www.andrebmsouza.com)
 
-#### Software Requirements
+## Software Requirements
 
 [MATLAB](https://www.mathworks.com/) The code has been tested with the MATLAB releases R2017a and R2019a
 
-#### Instructions
+## Instructions
 
-To replicate the out-of-sample results of Brownlees and Souza (2019) run the script <tt>gar_replication.m</tt>.
-The script will create Tables 4 to 6. The tables will be stored as individual CSV files in the directory <tt>tables</tt>.
+To replicate the out-of-sample results run the script <tt>gar_replication.m</tt>.
+The script will create Tables 4 to 6 of the paper. The tables will be stored as individual CSV files in the directory <tt>tables</tt>.
 
-#### Data
+## Data
 
-The data used in this study was downloaded from the following sources in June 2019.
+***Important Disclaimer:*** The data used in this study was downloaded from the following sources in June 2019.
 
- - GDP: 'https://stats.oecd.org/sdmx-json/data/DP_LIVE/.QGDP.../OECD?contentType=csv&detail=code&separator=comma&csv-lang=en'
+ - [GDP]('https://stats.oecd.org/sdmx-json/data/DP_LIVE/.QGDP.../OECD?contentType=csv&detail=code&separator=comma&csv-lang=en') from the OECD Database
  - NFCI: 'https://www.imf.org/~/media/Files/Publications/GFSR/2017/October/chapter-3/csv-data/data-appendix.ashx?la=eni'
  - ST_INTEREST: 'https://stats.oecd.org/sdmx-json/data/DP_LIVE/.STINT.../OECD?contentType=csv&detail=code&separator=comma&csv-lang=en'
  - LT_INTEREST: 'https://stats.oecd.org/sdmx-json/data/DP_LIVE/.LTINT.../OECD?contentType=csv&detail=code&separator=comma&csv-lang=en'
@@ -44,3 +48,6 @@ The data used in this study was downloaded from the following sources in June 20
    * 'https://www.policyuncertainty.com/media/Canada_Policy_Uncertainty_Data.xlsx'
    * 'https://www.policyuncertainty.com/media/Sweden_Policy_Uncertainty_Data.xlsx'
 
+## Additional Resources
+
+ - MFE Toolbox. 
