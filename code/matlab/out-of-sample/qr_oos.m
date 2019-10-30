@@ -34,14 +34,15 @@ function [status] = qr_oos( H , covs , createmfile )
 % For LASSO estimation
 % for details, see
 % https://faculty.fuqua.duke.edu/~abn5/belloni-software.html
+global HOME
 %% Load Data Mfile, predictors and set params
-load('../../../data/mfiles/data.mat')
+load(sprintf('%s/data/mfiles/data.mat', HOME )
 covs  = 1 - covs  ;    % 1 - Coverage
 % Load Predictors
-sv = readtable('../../../data/clean/sv.csv','TreatAsEmpty',{'.','NA'});
-ts = readtable('../../../data/clean/ts.csv','TreatAsEmpty',{'.','NA'});
-hp = readtable('../../../data/clean/hp.csv','TreatAsEmpty',{'.','NA'});
-cr = readtable('../../../data/clean/cr.csv','TreatAsEmpty',{'.','NA'});
+sv = readtable('%s/data/clean/sv.csv','TreatAsEmpty',{'.','NA'});
+ts = readtable('%s/data/clean/ts.csv','TreatAsEmpty',{'.','NA'});
+hp = readtable('%s/data/clean/hp.csv','TreatAsEmpty',{'.','NA'});
+cr = readtable('%s/data/clean/cr.csv','TreatAsEmpty',{'.','NA'});
 % Collect dates
 dates_sv = datenum(sv{:,2});
 dates_ts = datenum(ts{:,2});
@@ -166,10 +167,10 @@ for h = H % For each horizon
         fprintf(".")
     end
     fprintf(' QR OOS %s steps ahead done!' , h)
-    save( sprintf( '../../../data/mfiles/qr/coverage_%.2f_%.0f_ahead.mat',...
-                  1-coverage , h ) , 'M' ) % Save MFile to path
-    saved(h) = isfile( sprintf( '../../../data/mfiles/qr/coverage_%.2f_%.0f_ahead.mat',...
-                  1-coverage , h ) );
+    save( sprintf( '%s/data/mfiles/qr/coverage_%.2f_%.0f_ahead.mat',...
+                  HOME , 1-coverage , h ) , 'M' ) % Save MFile to path
+    saved(h) = isfile( sprintf( '%s/data/mfiles/qr/coverage_%.2f_%.0f_ahead.mat',...
+                  HOME , 1-coverage , h ) );
   end
 end
 
