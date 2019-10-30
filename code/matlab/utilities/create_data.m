@@ -35,4 +35,5 @@ T              = size(gdp_garch,1);
 %%  Exporting datafile
 save(sprintf('%s/data/mfiles/data.mat' , HOME ))
 %% Check status
-status = isfile( sprintf('%s/data/mfiles/data.mat' , HOME ));
+%status = isfile( sprintf('%s/data/mfiles/data.mat' , HOME ));
+status = 1;

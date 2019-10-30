@@ -1,11 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%      Backtesting Global Growth-at-Risk main replication script          % 
+%      Backtesting Global Growth-at-Risk Replication Script               % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This script replicates the tables reported on the paper.
+% This script replicates the tables 1 to 6 reported on the paper.
 % It is organized in sections, each of which runs a function that saves
 % a .mat file and outputs a status flag.
+
 %% Clearing
 clear all; clc
+
 %% Global Variable definitions and paths
 global HOME
 dr = dir('.');
@@ -27,12 +29,13 @@ addpath('code/matlab/utilities/SDPT3-4.0/')                               %
 addpath('code/matlab/utilities/SDPT3-4.0/Solver')                         %
 addpath('code/matlab/utilities/SDPT3-4.0/Solver/Mexfun')                  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %% Useful functions
 scale_var = @(x) (x - mean(x))./sqrt(var(x));
 %% Data Cleaning
-% We leave 5\% of the sample for ``training'' forecast errors from
+% We leave 5% of the sample for ``training'' forecast errors from
 % historical benchmarks.
-is = 0.2 ;
+is = 0.20;
 os = 0.25;
 % Create data
 data_status = create_data(is,os);

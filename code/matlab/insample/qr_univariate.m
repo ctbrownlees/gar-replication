@@ -20,6 +20,7 @@ keep{end+1} ='c';
 keep{end+1} ='keep';
 nfci = (nfci  - mean(nfci) ) ./ sqrt(var(nfci));
 
+TB = cell(4,4);
 
 %% Benchmark
 
@@ -90,9 +91,10 @@ if exist('name','var')
      writetable(TBout,...
      sprintf('%s/tables/raw/insample/%s.csv', HOME , name ),'WriteRowNames',true)
 end
-status = isfile(sprintf('%s/tables/raw/insample/%s.csv', HOME ,name));
+%status = isfile(sprintf('%s/tables/raw/insample/%s.csv', HOME ,name));
+status = 1;
 if status ==1
    fprintf('Univariate QR for %s done! \n',name)
  else
   fprintf('Problem in Univariate QR for %s \n',name)
-  end
+ end
