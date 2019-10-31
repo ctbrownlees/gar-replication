@@ -3,7 +3,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This script replicates tables  4-6 of the paper.
 %% Run setup script
-setup;
+global HOME;
+run('code/setup');
 
 % GaR Replication Analysis Options
 is       = 0.20;      % See create_data.m for more information. 
@@ -19,7 +20,7 @@ create_data(is,os);
 
 % Run QR out-of-sample
 qr_oos(H,coverage,1);
-
+
 % Run GARCH out-of-sample
 garch_oos( H , coverage); 
 

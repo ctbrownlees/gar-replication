@@ -1,39 +1,24 @@
-function qr_oos( H , covs , createmfile )
-% This function forecasts marginal and joint GaR using quantile regressions with
-% several predictors.
-%
-% USAGE:
-%   block_bootstrap(DATA,B,W)
+function qr_oos( H , covs )
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function forecasts marginal and joint GaR using quantile regressions
+% with several predictors.
 %
 % INPUTS:
 %   H      - Vector of forecast horizons
-%   covs   - Vector of coverage desired
+%   covs   - Vector of coverage levels
 %
 % OUTPUTS:
-%   BSDATA  - T by B matrix of bootstrapped data
-%   INDICES - T by B matrix of locations of the original BSDATA=DATA(indexes);
+%  This function creates .mat files in data/output. Each file contains
+%  a struct, M, that contains the collection of forecasts for all models,
+%  given a coverage level and a forecast horizon.
 %
+% SEE ALSO:
+%  L1QR.m , rq.m
 % COMMENTS:
-%   To generate bootstrap sequences for other uses, such as bootstrapping vector processes,
-%   set DATA to (1:N)'.
 %
-% See also stationary_bootstrap
+% Authors: Christian Brownlees and Andre B.M. Souza
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Author: Andre B.M Souza and Christian T. Brownlees
-
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% Input Checking
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% TODO
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% Input Checking
-%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Clearing Workspace
-%clear all
-%clc
-% For LASSO estimation
-% for details, see
-% https://faculty.fuqua.duke.edu/~abn5/belloni-software.html
 global HOME
 %% Load Data Mfile, predictors and set params
 load(sprintf('%s/data/input/data.mat', HOME ))
