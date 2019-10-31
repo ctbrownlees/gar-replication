@@ -26,7 +26,7 @@ addpath('code/utilities/SDPT3-4.0/Solver')                         %
 addpath('code/utilities/SDPT3-4.0/Solver/Mexfun')                  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% GaR Replication Exercise Options
+%% GaR Replication Anlaysis Options
 % We leave 5\% of the sample for ``training'' forecast errors from
 % historical benchmarks. I DON'T UNDERSTAND WHAT THIS MEANS
 
@@ -35,7 +35,7 @@ os       = 0.25;      % NOT SURE WHAT THIS IS
 H        = [1 2 3 4]; % Horizons
 coverage = 0.95;      % Nominal coverage level of GaR forecasts
 
-%% Run
+%% Run Analysis
 
 % Create data
 create_data(is,os);
