@@ -1,4 +1,4 @@
-function create_data(is,os)
+function create_data(os)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Creates the data.mat file that will be used throughout the code
 % 
@@ -48,6 +48,7 @@ dates_nfci = datenum( cell2mat( dates_nfci ),...
 
 %% Setting up parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [T_nfci , N] = size( gdp_qr ); % We set sizes relative to NFCI
+is           = os - 0.05;  % See the comments. 
 isnfci       = floor( is * T_nfci ); 
 is           = sum( dates_garch <= dates_nfci( isnfci ) );
 os           = floor( os * T_nfci ) ;

@@ -9,7 +9,6 @@ global HOME;
 run('code/setup');
 
 % GaR Replication Analysis Options
-is       = 0.20;  % See create_data.m for more information. 
 os       = 0.25;  % Out-of-sample forecasting starts at 25% of the
 % available observations for QR.
 H        = [1 2 3 4]; % Vector of forecast horizons
@@ -27,5 +26,5 @@ qr_oos(H,coverage,1);
 garch_oos( H , coverage); 
 
 % Create tables for out-of-sample results
-create_tables(H , coverage) ;
+create_tables( H , coverage) ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
