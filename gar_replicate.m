@@ -25,22 +25,25 @@ addpath('code/utilities/SDPT3-4.0/')                               %
 addpath('code/utilities/SDPT3-4.0/Solver')                         %
 addpath('code/utilities/SDPT3-4.0/Solver/Mexfun')                  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Data Cleaning
+
+%% GaR Replication Exercise Options
 % We leave 5\% of the sample for ``training'' forecast errors from
-% historical benchmarks.
-is = 0.2 ;
-os = 0.25;
+% historical benchmarks. I DON'T UNDERSTAND WHAT THIS MEANS
+
+is       = 0.20;      % NOT SURE WHAT THIS IS
+os       = 0.25;      % NOT SURE WHAT THIS IS
+H        = [1 2 3 4]; % Horizons
+coverage = 0.95;      % Nominal coverage level of GaR forecasts
+
+%% Run
+
 % Create data
 create_data(is,os);
 
-H  = [1 2 3 4];
-coverage = 0.95;
-
-%% Out-of-Sample Results
-% QR out-of-sample
+% Run QR out-of-sample
 qr_oos(H,coverage,1);
 
-% GARCH out-of-sample
+% Run GARCH out-of-sample
 garch_oos( H , coverage); 
 
 % Create tables for out-of-sample results
