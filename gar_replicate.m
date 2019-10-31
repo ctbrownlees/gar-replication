@@ -31,8 +31,8 @@ create_data(os);
 qr_oos(H,coverage);
 
 % Run GARCH out-of-sample
-garch_oos( H , coverage); 
+garch_oos(H,coverage); 
 
 % Create tables for out-of-sample results
-create_tables( H , coverage) ;
+create_tables(H,coverage);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
