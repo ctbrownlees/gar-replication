@@ -8,7 +8,7 @@ global HOME
 dr = dir('.');
 dr = {dr.name};
 if ~sum(contains(dr,'code'))==1
-    cd ../../ % Move to landing folder, if not there
+    cd ../   % Move to landing folder, if not there
     HOME = cd ;
 else
     HOME = cd;
