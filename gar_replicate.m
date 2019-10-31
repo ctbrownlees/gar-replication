@@ -25,5 +25,5 @@ qr_oos(H,coverage,1);
 garch_oos( H , coverage); 
 
 % Create tables for out-of-sample results
-create_tables(4, coverage) ;
+create_tables(H , coverage) ;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
