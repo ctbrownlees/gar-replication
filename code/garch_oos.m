@@ -1,15 +1,38 @@
 function garch_oos( H , covs )
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Construct Joint and Marginal GARCH GaR forecasts based on GARCH models
+%  and composite likelihood estimation.
+% 
+% INPUTS:
+%   H     - Vector of forecast horizons
+%   covs  - Vector of coverage levels 
+% 
+% OUTPUTS:
+%  This function creates .mat files in data/output. Each file contains
+%  a struct, M, that contains the collection of forecasts for all models,
+%  given a coverage level and a forecast horizon.
+% 
+% SEE ALSO:
+%  tarch_composite.m
+%
+% Authors: Christian Brownlees and Andre B.M. Souza
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 global HOME
-%% Load Data Mfile and set params
+
+%% Load Data Mfile and set params %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 load(sprintf('%s/data/input/data.mat', HOME ))
-B            = 5000         ;  % Number of Bootstrap sims
-covs         = 1 - covs     ;  % Desired Coverage = 1 - covs
+B            = 5000         ;  % Number of Bootstrap sims for BJPR
+covs         = 1 - covs     ;  % Quantile of interest
+
 keep = whos();
 keep = arrayfun(@(d) d.name,keep,'UniformOutput',false);
 keep{end+1} = 'h';
 keep{end+1} ='c';
 keep{end+1} ='keep';
-%% Forecasting Exercise
+% keep all these variables after each loop iteration, but remove
+% everything else. 
+%%%%%%%%%%%%%%%%%%%%% Forecasting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 for h = H
   fprintf('Starting OOS GARCH for h= %d \n',h)
   for c = 1:length(covs)
@@ -62,8 +85,6 @@ for h = H
         zH    = sgdp(bdraws,:);
         dmax  = quantile( min(zH,[],2),coverage,1)';
         M.hjpr(t-os_garch+1,:) = mean(gdp_garch(1:t-1,:))' + sqrt(var( ( gdp_garch(1:t-1,:) ) ))'.*dmax;
-
-        %% Iterated GARCH
 
         % Variances for variance targetting
         vtarget  = var(gdp_shock);
@@ -123,7 +144,7 @@ for h = H
           fcastF(q+1,:,:)   = vtargetF*(1-paramF(1)-paramF(2)) + ...
           paramF(1).*squeeze(ret_f(q,:,:)).^2 + paramF(2).*squeeze(fcastF(q,:,:));
 
-          % Bootstrap new days
+          % Bootstrap new days for next iteration
           bdraws = datasample(1:t-h,B);
         end
 
