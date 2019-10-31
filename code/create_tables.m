@@ -191,5 +191,5 @@ for h = HAHEAD
       HOME , strrep(num2str(1-coverage,'%.2f'),'.',''),h),'WriteRowNames',true)
     end
 end
-fprintf(' \n CSV files created, check the tables folder')
+fprintf('\nCSV files created, check the tables folder \n')
 
