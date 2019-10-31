@@ -11,7 +11,7 @@ keep{end+1} ='c';
 keep{end+1} ='keep';
 %% Forecasting Exercise
 for h = H
-  fprintf('Starting OOS GARCH for h= %d \n',h)
+  fprintf('Starting OOS GARCH for h = %d \n',h)
   for c = 1:length(covs)
     rng(12) % Set seed
     % First, clear everything from last iteration
