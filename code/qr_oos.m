@@ -43,7 +43,7 @@ cr_qr      = cr{ismember(dates_cr,dates_nfci),3:end};
 dsmp = os_garch - os_nfci;
 %% Start of the forecasting exercise
 for h = H % For each horizon
-  fprintf('Starting OOS QR for h= %d',h)
+  fprintf('Starting OOS QR for h = %d\n',h)
     for c = 1:length(covs) % for each coverage level
       rng(12)              % Set seed
       % First, clear all structs to make sure nothing remains from the last iteration

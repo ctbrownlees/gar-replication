@@ -19,7 +19,7 @@ create_data(is,os);
 
 % Run QR out-of-sample
 qr_oos(H,coverage,1);
-
+
 % Run GARCH out-of-sample
 garch_oos( H , coverage); 
 
