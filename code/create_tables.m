@@ -175,7 +175,6 @@ for h = H
       TB4.Properties.RowNames = imf_names;
       TB4 = sortrows(TB4,'RowNames');
 
-
       writetable(TB4,...
       sprintf('%s/tables/IMF_%s_%.0f_ahead.csv',...
       HOME , strrep(num2str(1-coverage,'%.2f'),'.',''),h),...
@@ -208,5 +207,5 @@ for h = H
       HOME , strrep(num2str(1-coverage,'%.2f'),'.',''),h),'WriteRowNames',true)
     end
 end
-fprintf(' \n CSV files created, check the tables folder')
+fprintf('\nCSV files created, check the tables folder \n')
 
