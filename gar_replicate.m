@@ -9,10 +9,12 @@ global HOME;
 run('code/setup');
 
 % GaR Replication Analysis Options
-os       = 0.25;  % Out-of-sample forecasting starts at 25% of the
-% available observations for QR.
-H        = [1 2 3 4]; % Vector of forecast horizons
-coverage = 0.95;  % Nominal coverage level of GaR forecasts
+% Out-of-sample forecasting starts at 25% of the available observations for QR.
+os       = 0.25;
+% Vector of forecast horizons
+H        = [1 2 3 4]; 
+% Nominal coverage level of GaR forecasts
+coverage = 0.95;  
 
 %% Run Analysis
 
