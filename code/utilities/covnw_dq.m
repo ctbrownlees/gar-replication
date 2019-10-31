@@ -1,4 +1,5 @@
-function V=covnw_dq(data,nlag,demean)
+function [V] = covnw_dq(data,nlag,demean)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Long-run covariance estimation using Newey-West (Bartlett) weights 
 %  
 % USAGE:
@@ -28,11 +29,11 @@ function V=covnw_dq(data,nlag,demean)
 %       lrcov = covnw(y, 10, 0)
 %
 % See also COVVAR
- 
 % Copyright: Kevin Sheppard
 % kevin.sheppard@economics.ox.ac.uk
 % Revision: 3    Date: 5/1/2007
- 
+% Modified by Christian Brownlees and Andre B.M Souza in
+% 06/2019
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input Checking
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

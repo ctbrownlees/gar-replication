@@ -1,4 +1,29 @@
 function [parameters,ht,zt,htfcast] = tarch_composite(data,shocks,p,o,q,h)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function computes GARCH models using composite likelihood. 
+%
+% INPUTS:
+%   data   - T by N matrix of obvservations 
+%   shocks - T by N vector of shocks; used to drive the Direct GARCH
+%            for iterated GARCH, this is the same as data.
+%   p      - order of the ARCH 
+%   o      - order of the asymmetry; 0 is usual GARCH.
+%   q      - order of the GARCH 
+%   h      - forecast horizon
+%
+% OUTPUTS:
+%   parameters  - Vector of estimated parameters 
+%   ht          - Matrix of conditional volatilities 
+%   zt          - Matrix of standardized residuals 
+%   htfcast     - Forecast of the conditional variances 
+%   
+% COMMENTS:
+%  This function estimates the parameters of the following equation 
+%  
+%  h_{i,t} = var * (1 - alpha - beta) + alpha .* data^2 + beta h_{i,t-1}
+%
+%  where var is the variance of the data.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Set options
 options = optimset('fminunc');
 options = optimset(options,'TolFun',1e-005);

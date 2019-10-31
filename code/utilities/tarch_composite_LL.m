@@ -1,10 +1,35 @@
-function [SLL,ht,zt,htfcast]=tarch_composite_LL_check(param,data,gdp_shocks,p,o,q,h)
-
+function [SLL,ht,zt,htfcast]=tarch_composite_LL(param,data,gdp_shocks,p,o,q,h)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function computes the composite likelihood of GARCH models, given 
+% a set of parameters (param).
+%
+% INPUTS:
+%   data   - T by N matrix of obvservations 
+%   shocks - T by N vector of shocks; used to drive the Direct GARCH
+%            for iterated GARCH, this is the same as data.
+%   p      - order of the ARCH 
+%   o      - order of the asymmetry; 0 is usual GARCH.
+%   q      - order of the GARCH 
+%   h      - forecast horizon
+%
+% OUTPUTS:
+%   SLL         - Sum of Neg. Composite Likelihood
+%   ht          - Matrix of conditional volatilities 
+%   zt          - Matrix of standardized residuals 
+%   htfcast     - Forecast of the conditional variances 
+%   
+% COMMENTS:
+%  This function estimates the parameters of the following equation 
+%  
+%  h_{i,t} = var * (1 - alpha - beta) + alpha .* data^2 + beta h_{i,t-1}
+%
+%  where var is the variance of the data.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Initializing
 [T , N ] = size(data);
-ht = zeros(size(data));
-htfcast = zeros([1 N]);
-m = max([p,o,q,h]);
+ht       = zeros(size(data));
+htfcast  = zeros([1 N]);
+m        = max([p,o,q,h]);
 ht(1:m,:) = repmat(var(data),[h 1]);
 
 % Forcing 0 if symmetric model.

@@ -1,4 +1,5 @@
-function [b, tstat, s2, vcvnw, R2, Rbar, yhat] = olsnw_dq(y,x,c,nwlags,p)
+function [b, vcvnw] = olsnw_dq(y,x,c,nwlags,p)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Linear regression estimation with Newey-West HAC standard errors.
 %
 % USAGE:
@@ -36,11 +37,11 @@ function [b, tstat, s2, vcvnw, R2, Rbar, yhat] = olsnw_dq(y,x,c,nwlags,p)
 %       b = olsnw(y,x,1,0)
 %
 % See also OLS
-
-
 % Copyright: Kevin Sheppard
 % kevin.sheppard@economics.ox.ac.uk
 % Revision: 3    Date: 9/1/2005
+% Modified by Christian Brownlees and Andre B.M Souza in
+% 06/2019
 
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -104,31 +105,17 @@ elseif ~ismember(c,[0 1]) % Check for an error
     error('C must be either 1 or 0');
 end
 
-
 % Compute beta
 b=x\y;
 % And the fit values
 yhat=x*b;
 % And the errors
 epsilon=y-yhat;
-% And the estimated residual variance, which under the null is p(1-p)
-s2 = covnw(epsilon,nwlags,0);
-s2 = s2 + p*(1-p);
 % Once we have E, White's VCV is easy
 scores = x.*repmat(epsilon,1,K);
 XpXi =(x'*x/T)^(-1);
 vcvnw = XpXi * ( XpXi^(-1)*p*(1-p) + covnw_dq(scores,nwlags,0)) * XpXi /T;
-%XpXi * ( XpXi^(-1)*p*(1-p)) * XpXi /T;
-% Compute t-stats using White
-tstat=b./sqrt(diag(vcvnw));
-
-% Finally the R2 and Rbar
-if c==1 % Use centered if a constant is included
-    ytilde=y-mean(y);
-    R2=1 - (epsilon'*epsilon)/(ytilde'*ytilde);
-    Rbar=1 - (epsilon'*epsilon)/(ytilde'*ytilde) * (T-1)/(T-K);
-else % Use non centered versions
-    R2=1 - (epsilon'*epsilon)/(y'*y);
-    Rbar=1 - (epsilon'*epsilon)/(y'*y) * (T-1)/(T-K);
-end
+% We target the Variance to match the variance under the null of the DQ. 
+% We allow for arbitrary dependence on higher order autocovariances.
+% Note: not necessarily PD
 end
