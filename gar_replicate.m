@@ -4,25 +4,31 @@
 %
 % This script replicates tables 4-6 of the paper.
 %
-%% Run setup script
+%% Run setup 
+
 global HOME;
 run('code/setup');
 
 % GaR Replication Analysis Options
-% Out-of-sample forecasting starts at 25% of the available observations for QR.
-os       = 0.25;
+
+% Beginning of out of sample period
+os = 0.25;
+% (The forecasting exercise starts at observation floor(os*T) where 
+% T is the sample size)
+
 % Vector of forecast horizons
-H        = [1 2 3 4]; 
+H = [1 2 3 4]; 
+
 % Nominal coverage level of GaR forecasts
 coverage = 0.95;  
 
 %% Run Analysis
 
 % Create data
-create_data(is,os);
+create_data(os);
 
 % Run QR out-of-sample
-qr_oos(H,coverage,1);
+qr_oos(H,coverage);
 
 % Run GARCH out-of-sample
 garch_oos( H , coverage); 
