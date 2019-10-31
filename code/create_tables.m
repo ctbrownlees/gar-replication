@@ -113,8 +113,8 @@ for h = HAHEAD
       % Historical
 
       TB2out  = struct2table(TB2);
-      TB2out.Properties.RowNames = string({"GARCH" , "GJR-GARCH" , "F-GARCH","Historical", "QR-NFCI" , "QR-NFCI+TS" ,...
-      "QR-NFCI+TS+GF","Full","Lasso"});
+      TB2out.Properties.RowNames= {'GARCH', 'GJR-GARCH' , 'F-GARCH','Historical', 'QR-NFCI' , 'QR-NFCI+TS',...
+      'QR-NFCI+TS+GF','Full','Lasso' }
       TB2out = [TB2out(4,:) ; TB2out(5:end,:) ;TB2out(1:3,:)];
 
       writetable(TB2out,...
