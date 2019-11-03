@@ -46,7 +46,7 @@ The script will create Tables 4 to 6 of the paper. The tables will be stored as 
    * [Sweden](https://www.policyuncertainty.com/media/Sweden_Policy_Uncertainty_Data.xlsx)
 
 ## Additional Resources
-### Vulnerable Growth Replication Files (Adrian et al, 2019)
+### [Vulnerable Growth Replication Files (Adrian et al, 2019)](https://www.aeaweb.org/articles?id=10.1257/aer.20161923)
  - rq.m: Function to compute quantile regression. Source: Vulnerable Growth Replication Files (Adrian et al, 2019)
 
 ### [MFE Toolbox](https://github.com/bashtage/mfe-toolbox)
@@ -54,8 +54,7 @@ The script will create Tables 4 to 6 of the paper. The tables will be stored as 
  - olsnw.m: Function to perform inference on ols parameters with HAC.
  - normloglik.m: Log Likelihood for the standard normal. 
 
-### The following files are modified versions of the above. We use them to 
- perform the DQ test for h>1 step ahead forecasts.
+### The following files are modified versions of the above. We use them to perform DQ tests for h>1 step ahead forecasts.
  - covnw_dq.m: Function to estimate HAC covariance matrices for binary hit variables.
  - olsnw_dq.m: Function to perform robust inference on binary hit variables.
 
