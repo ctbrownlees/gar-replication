@@ -159,7 +159,7 @@ for h = H
       end
       fprintf('.')
     end
-    fprintf('\n QR OOS %d steps ahead done!' , h)
+    fprintf('\nQR OOS %d-step-ahead done!\n' , h)
     save( sprintf( '%s/data/output/QR_%.2f_%.0f_ahead.mat',...
     HOME , 1-coverage , h ) , 'M' ) % Save MFile to path
   end

@@ -171,7 +171,7 @@ for h = H
       end
       fprintf('.')
     end
-    fprintf('\n GARCH OOS %d steps ahead done!' , h) 
+    fprintf('\nGARCH OOS %d-step-ahead done!\n' , h) 
     save(sprintf('%s/data/output/GARCH_%.2f_%.0f_ahead.mat',HOME , ...
     1 - coverage , h ) , 'M' )
   end
