@@ -62,6 +62,5 @@ The script will create Tables 4 to 6 of the paper. The tables will be stored as 
  - L1QR.m: L1 penalized quantile regression. Depends on SDPT3-4.0. See below.
 
 ### Packages:
- - [SDPT3-4.0](https://github.com/sqlp/sdpt3): 
+ - [SDPT3-4.0](https://github.com/sqlp/sdpt3)
  
-
