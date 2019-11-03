@@ -46,23 +46,23 @@ The script will create Tables 4 to 6 of the paper. The tables will be stored as 
    * [Sweden](https://www.policyuncertainty.com/media/Sweden_Policy_Uncertainty_Data.xlsx)
 
 ## Additional Resources
- # Vulnerable Growth Replication Files (Adrian et al, 2019)
+### Vulnerable Growth Replication Files (Adrian et al, 2019)
  - rq.m: Function to compute quantile regression. Source: Vulnerable Growth Replication Files (Adrian et al, 2019)
 
- # [MFE Toolbox](https://github.com/bashtage/mfe-toolbox)
+### [MFE Toolbox](https://github.com/bashtage/mfe-toolbox)
  - covnw.m: Function to estimate HAC covariance matrices.
  - olsnw.m: Function to perform inference on ols parameters with HAC.
  - normloglik.m: Log Likelihood for the standard normal. 
 
- # The following files are modified versions of the above. We use them to 
+### The following files are modified versions of the above. We use them to 
  perform the DQ test for h>1 step ahead forecasts.
  - covnw_dq.m: Function to estimate HAC covariance matrices for binary hit variables.
  - olsnw_dq.m: Function to perform robust inference on binary hit variables.
 
- # [Belloni, Chernozhukov (2011) code files](https://faculty.fuqua.duke.edu/~abn5/belloni-software.html)
+### [Belloni, Chernozhukov (2011) code files](https://faculty.fuqua.duke.edu/~abn5/belloni-software.html)
  - L1QR.m: L1 penalized quantile regression. Depends on SDPT3-4.0. See below.
 
- # Packages:
+### Packages:
  - [SDPT3-4.0](https://github.com/sqlp/sdpt3): 
  
 
