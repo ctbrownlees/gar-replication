@@ -54,7 +54,8 @@ The script will create Tables 4 to 6 of the paper. The tables will be stored as 
  - olsnw.m: Function to perform inference on ols parameters with HAC.
  - normloglik.m: Log Likelihood for the standard normal. 
 
-### The following files are modified versions of the above. We use them to perform DQ tests for h>1 step ahead forecasts.
+The following files are modified versions of the above. We use them to perform DQ tests for h>1 step ahead forecasts.
+
  - covnw_dq.m: Function to estimate HAC covariance matrices for binary hit variables.
  - olsnw_dq.m: Function to perform robust inference on binary hit variables.
 
