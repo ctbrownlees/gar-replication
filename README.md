@@ -6,7 +6,7 @@ by Christian Brownlees and Andre B.M. Souza which is available on SSRN at the ad
 [https://ssrn.com/abstract=3461214](https://ssrn.com/abstract=3461214)
 
 ## Authors 
- [Christian Brownlees](http://www.econ.upf.edu/~cbrownlees/) and [Andre B.M. Souza](www.andrebmsouza.com)
+ [Christian Brownlees](http://www.econ.upf.edu/~cbrownlees/) and [Andre B.M. Souza](http://www.andrebmsouza.com)
 
 ## Software Requirements
 
