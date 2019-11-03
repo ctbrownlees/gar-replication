@@ -35,4 +35,5 @@ garch_oos(H,coverage);
 
 % Create tables for out-of-sample results
 create_tables(H,coverage);
+% Tables will be created in .csv files in HOME/tables. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
