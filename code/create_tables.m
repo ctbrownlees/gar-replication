@@ -18,36 +18,32 @@ function create_tables( H , covs )
 global HOME
 rng(12)
 for h = H   
-  for c=1:length(covs)
-    coverage=1-covs(c);
+  for c = 1:length( covs )
+    coverage = 1 - covs( c );
     % Data
-    load(sprintf('%s/data/input/data.mat', HOME ))
+    load( sprintf( '%s/data/input/data.mat' , HOME ))
     % QR results
-    load(sprintf('%s/data/output/QR_%.2f_%.0f_ahead.mat', HOME , 1 - coverage ,h ) )
+    load( sprintf( '%s/data/output/QR_%.2f_%.0f_ahead.mat' , HOME , 1 - coverage , h ) )
     QR     = M;
     % GARCH results
-    load(sprintf('%s/data/output/GARCH_%.2f_%.0f_ahead.mat', HOME , 1 - coverage,h ) )
+    load(sprintf('%s/data/output/GARCH_%.2f_%.0f_ahead.mat', HOME , 1 - coverage , h ) )
     % Joining into one struct
-    fQ  = fieldnames(QR);     
-    for m = 1: length(fQ)
-      M.(fQ{m}) = QR.(fQ{m});
+    fQ  = fieldnames( QR );     
+    for m = 1: length( fQ )
+      M.(fQ{m}) = QR.(fQ{ m });
     end
     % Define out of sample variables:
     % GDP against which we compare our forecasts:
-    gdp_os      = gdp_garch( ( os_garch + h ):T,: );
+    gdp_os      = gdp_garch( ( os_garch + h ) : T , :  );
     % GDP available when the forecast was made - for DQ:
-    gdp_dq      = gdp_garch( os_garch:(T - h) , : );
-    dates_os    = dates_garch( ( os_garch + h ): T , : );
+    gdp_dq      = gdp_garch( os_garch : (T - h) , : );
     nfci_os     = nfci( os_nfci:end-h , : );
     % NFCI for DQ
     global_nfci = mean( nfci_os , 2 );
-    %      [~, global_nfci , ~ ] = pca(nfci_os);
-    %      global_nfci = global_nfci2(:,1);
-
     [~, global_real , ~ ] = pca( gdp_garch( os_garch:end-h , : ) );
     global_real = global_real( : , 1 );
 
-    % Some helpful functions
+    %%%%%%%%%%%%% Some helpful functions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     smaller      = @( x ) gdp_os <= x ;           % Compute Hits
     uni_hit      = @( x ) any( gdp_os <= x ,2 ) ; % Compute Uniform Hits
     mar_cov      = @( x ) mean( mean( x , 1 )'    ) ; % Marginal Coverage      
@@ -58,6 +54,7 @@ for h = H
     dq_real_uni  = @( x ) aug_dq( coverage , x , global_real , h); % DQ Real
     dq_unc_struct= @( x ) dq_unc( coverage , x , h);               % DQ Unc
     tick_loss    = @( x ) mean( ( gdp_os - x ).*( coverage - ( ( gdp_os - x ) < 0 ) ) );
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Hits        
     H  = structfun(smaller , M , 'UniformOutput' , false ); 
     % Uniform Hits
@@ -103,39 +100,43 @@ for h = H
         catch
           covr = 1;
         end
-        DMstath(k,i) = ( mean( lossdiff ) /sqrt( covr ) );
-        DMh(k,i) = 1-normcdf( DMstath(k,i) );
+        DMstath( k , i ) = ( mean( lossdiff ) /sqrt( covr ) );
+        DMh( k , i )     = 1 - normcdf( DMstath( k , i ) );
        end
      end
 
-     U_MC     = table2array([ MC(margind,1)]);
-     U_L      = table2array([ avgL(margind,1)]);
+     U_MC     = table2array([ MC( margind , 1 )]);
+     U_L      = table2array([ avgL( margind , 1 )]);
 
-     Tloss     = structfun(tick_loss,M,'UniformOutput',false);
-     Tloss     = reshape(struct2array(Tloss),[],numel(fieldnames(M)))';
-     Tloss     = Tloss(margind,:);
+     Tloss     = structfun( tick_loss , M , 'UniformOutput' , false );
+     Tloss     = reshape( struct2array( Tloss ) , [] , numel(fieldnames(M)))';
+     Tloss     = Tloss( margind , : );
 
+     % Find the historical benchmark
+     bm = find(strcmp( cellstr( marg ) , 'QRUNC' ) );
      TB2.Mean    = [ 100*U_MC ];
      TB2.Length  = [U_L ];
-     TB2.DQUNC    = [100*mean(UUC>0.01,2)];
-     TB2.DQHITS    = [100*mean(UDQ>0.01,2)];
-     TB2.DQFIN = [100*mean(UADQ>0.01,2)];
-     TB2.DQREAL= [100*mean(RADQ>0.01,2)];
-     TB2.Tloss   = [mean(Tloss,2)];
-     TB2.DeltaTL = (1-TB2.Tloss/TB2.Tloss(4)); % Benchmark is the 
+     TB2.DQUNC   = [100*mean( UUC > 0.01 , 2)];
+     TB2.DQHITS  = [100*mean( UDQ > 0.01 , 2)];
+     TB2.DQFIN   = [100*mean( UADQ > 0.01 , 2)];
+     TB2.DQREAL  = [100*mean( RADQ > 0.01 , 2)];
+     TB2.Tloss   = [mean( Tloss , 2 )];
+     TB2.DeltaTL = ( 1 - TB2.Tloss/TB2.Tloss( bm ) ); % Benchmark is the 
      % Historical
+     % marg shows the fieldnames
 
      TB2out  = struct2table(TB2);
      TB2out.Properties.RowNames= {'GARCH', 'GJR-GARCH' , 'F-GARCH','Historical', 'QR-NFCI' , 'QR-NFCI+TS',...
      'QR-NFCI+TS+GF','Full','Lasso' };
+     % Ordering it in a nicer way
      TB2out = [TB2out(4,:) ; TB2out(5:end,:) ;TB2out(1:3,:)];
 
      writetable(TB2out,...
      sprintf('%s/tables/MarginalGaR_%s_%.0f_ahead.csv',...
      HOME , strrep(num2str(1-coverage,'%.2f'),'.',''),h),...
      'WriteRowNames',true)
+
      %% Table 5: Selected IMF Countries
-     % IMF Countries
      % Countries for which IMF describes results
      imf = {'KOR' , 'AUS' , 'BRA' , 'CAN' , 'CHL' , 'CHI' , 'FRA' , 'DEU' ,...
      'IND' , 'IDN' , 'ITA' , 'JPN' , 'MEX' , 'RUS' , 'SAF' , 'ESP',...
@@ -144,13 +145,12 @@ for h = H
      names = data.Properties.VariableNames( 3:end );
      imf_names = names( ismember( names , imf ));
      imf_sel   = find( ismember( names , imf) );
-
-
-     select      = ismember(fieldnames(M),{'QRUNC','QRFIN','margG'}) ;
+     
+     % Uniform Indices (for length)
      selectU     = ismember(fieldnames(M),{'QRUNC'}) ;
      selectFIN   = ismember(fieldnames(M),{'QRFIN'}) ;
-     selectGARCH   = ismember(fieldnames(M),{'margG'}) ;
-     select_marg = ismember(marg,{'QRUNC','QRFIN','margG'});
+     selectGARCH = ismember(fieldnames(M),{'margG'}) ;
+     % Marginal indices ( for everything else)
      select_unc  = ismember(marg,{'QRUNC'});
      select_fin  = ismember(marg,{'QRFIN'});
      select_gar  = ismember(marg,{'margG'});
@@ -168,7 +168,6 @@ for h = H
      GARCH   = [covIMF(:,3) lenIMF(:,3) ucIMF(:,3) TlossIMF(:,3) dmIMFh(:,3)>0.99 dmIMFh(:,3)>0.95 dmIMFh(:,3)>0.90];
      QRFIN   = [covIMF(:,2) lenIMF(:,2) ucIMF(:,2) TlossIMF(:,2) dmIMFh(:,2)>0.99 dmIMFh(:,2)>0.95 dmIMFh(:,2)>0.90];
      TB4 = table(Historical,QRFIN,GARCH);
-     %TB4 = table(covIMF,lenIMF,ucIMF,TlossIMF);
      TB4.Properties.RowNames = imf_names;
      TB4 = sortrows(TB4,'RowNames');
 
@@ -178,10 +177,10 @@ for h = H
      'WriteRowNames',true)
 
      %% Table 6: Uniform coverage
-     DQHITS     = table(structfun(dq_hits_struct , UH ),'RowNames',fieldnames(H),'VariableNames',{'DQ'});
-     DQFIN  = table(structfun(dq_fin_uni  , UH ),'RowNames',fieldnames(H),'VariableNames',{'DQFin'});
-     DQREAL = table(structfun(dq_real_uni  , UH ),'RowNames',fieldnames(H),'VariableNames',{'DQReal'});
-     DQUNC     = table(structfun(dq_unc_struct , UH ),'RowNames' ,fieldnames(H),'VariableNames',{'UC'});
+     DQHITS  = table( structfun( dq_hits_struct , UH ),'RowNames',fieldnames(H),'VariableNames',{'DQ'});
+     DQFIN   = table( structfun( dq_fin_uni  , UH ),'RowNames',fieldnames(H),'VariableNames',{'DQNfci'});
+     DQREAL  = table( structfun( dq_real_uni  , UH ),'RowNames',fieldnames(H),'VariableNames',{'DQReal'});
+     DQUNC   = table( structfun( dq_unc_struct , UH ),'RowNames' ,fieldnames(H),'VariableNames',{'DQUnc'});
 
      TB = [ C  avgL  DQUNC DQHITS DQFIN DQREAL ];        
 

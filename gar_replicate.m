@@ -6,7 +6,7 @@
 %
 %% Run setup 
 
-global HOME;
+global HOME; % Define the home path for the script as the landing folder.
 run('code/setup');
 
 % GaR Replication Analysis Options
