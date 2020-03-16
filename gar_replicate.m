@@ -17,11 +17,10 @@ os = 0.25;
 % T is the sample size)
 
 % Vector of forecast horizons
-H = [1 2 3 4]; 
+H = [1 2 3 4 ]; 
 
 % Nominal coverage level of GaR forecasts
-coverage = 0.95;  
-
+coverage = [0.95 0.75 0.25 0.05];  
 %% Run Analysis
 
 % Create data
@@ -30,10 +29,18 @@ create_data(os);
 % Run QR out-of-sample
 qr_oos(H,coverage);
 
+% Run Panel QR out-of-sample
+panel_qr_oos(H,coverage);
+
 % Run GARCH out-of-sample
 garch_oos(H,coverage); 
 
+% Constructing Distributions
+distributions_oos(H);
+
 % Create tables for out-of-sample results
 create_tables(H,coverage);
+
 % Tables will be created in .csv files in HOME/tables. 
+create_tables_panel(H,coverage)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

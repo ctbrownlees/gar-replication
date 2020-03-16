@@ -15,7 +15,10 @@ else
 end
 addpath('code/')    
 addpath('code/utilities/')
-
+% Allocate panel folder, if not exists:
+if ~exist('tables/panel', 'dir')
+  mkdir('tables/panel')
+end
 % This block for LASSO estimation of quantiles %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % See also   https://faculty.fuqua.duke.edu/~abn5/belloni-software.html   %                              
 addpath('code/utilities/SDPT3-4.0/')                                      %
