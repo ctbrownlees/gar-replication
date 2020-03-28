@@ -48,6 +48,7 @@ The script will create Tables 4 to 6 of the paper. The tables will be stored as 
 ## Additional Resources
 ### [Vulnerable Growth Replication Files (Adrian et al, 2019)](https://www.aeaweb.org/articles?id=10.1257/aer.20161923)
  - rq.m: Function to compute quantile regression. Source: Vulnerable Growth Replication Files (Adrian et al, 2019)
+ - QuantilesInterpolation.m: Function to interpolate quantiles and get a Skewed T.
 
 ### [MFE Toolbox](https://github.com/bashtage/mfe-toolbox)
  - covnw.m: Function to estimate HAC covariance matrices.
@@ -61,6 +62,8 @@ The following files are modified versions of the above. We use them to perform D
 
 ### [Belloni, Chernozhukov (2011) code files](https://faculty.fuqua.duke.edu/~abn5/belloni-software.html)
  - L1QR.m: L1 penalized quantile regression. Depends on SDPT3-4.0. See below.
+
+### [Azzalini Files, as in Adrian et al, 2019]
 
 ### Packages:
  - [SDPT3-4.0](https://github.com/sqlp/sdpt3)
